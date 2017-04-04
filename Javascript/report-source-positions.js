@@ -18,7 +18,7 @@ outlets = 1;
 function sourcespositions() {
 	
 	//Source index is the source as it's referred to by SPAT
-	var source_index = 0;
+	var source_index = 1;
 	
 	//Get the source positions from spat.oper and store as an array
 	var sourcespositions = arrayfromargs(arguments);
@@ -27,15 +27,8 @@ function sourcespositions() {
 	 * Group source positions by XYZ and output as a symbol to the first outlet.
 	 */
 	for(var i = 0; i < sourcespositions.length; i = i+3) {
-		
 		//Output XYZ positions
-		outlet(
-			0,
-			"source " + (source_index+1) + " " 
-				+ sourcespositions[i] + " "
-				+ sourcespositions[i+1] + " "
-				+ sourcespositions[i+2]
-		);
+		outlet(0, "source " + source_index + " " + sourcespositions[i] + " " + sourcespositions[i+1] + " " + sourcespositions[i+2]);
 		
 		//Update source index to report next source
 		source_index++;

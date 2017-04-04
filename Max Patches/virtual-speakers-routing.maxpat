@@ -46,20 +46,6 @@
 				"box" : 				{
 					"fontname" : "Arial",
 					"fontsize" : 12.0,
-					"id" : "obj-85",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 1195.0, 55.0, 147.0, 18.0 ],
-					"text" : "create_envelope_follower"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
 					"frgb" : 0.0,
 					"id" : "obj-65",
 					"linecount" : 3,
@@ -79,7 +65,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 978.0, 146.0, 172.0, 20.0 ],
+					"patching_rect" : [ 978.0, 92.75, 172.0, 20.0 ],
 					"saved_object_attributes" : 					{
 						"filename" : "create-envelope-followers.js",
 						"parameter_enable" : 0
@@ -99,7 +85,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1017.0, 94.75, 154.0, 33.0 ],
+					"patching_rect" : [ 970.0, 30.75, 154.0, 33.0 ],
 					"text" : "We assume all sound sources are stereo"
 				}
 
@@ -113,7 +99,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 1017.0, 71.0, 156.0, 20.0 ],
+					"patching_rect" : [ 970.0, 7.0, 156.0, 20.0 ],
 					"text" : "Number of sound sources. "
 				}
 
@@ -4711,136 +4697,6 @@
 				}
 
 			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-340",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 300.0, 450.0, 134.0, 20.0 ],
-					"text" : "sat-envelope-follower 1"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-341",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 400.0, 451.0, 134.0, 20.0 ],
-					"text" : "sat-envelope-follower 2"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-342",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 500.0, 452.0, 134.0, 20.0 ],
-					"text" : "sat-envelope-follower 3"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-343",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 600.0, 453.0, 134.0, 20.0 ],
-					"text" : "sat-envelope-follower 4"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-344",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 700.0, 454.0, 134.0, 20.0 ],
-					"text" : "sat-envelope-follower 5"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-345",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 800.0, 455.0, 134.0, 20.0 ],
-					"text" : "sat-envelope-follower 6"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-346",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 900.0, 456.0, 134.0, 20.0 ],
-					"text" : "sat-envelope-follower 7"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-347",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 1000.0, 457.0, 134.0, 20.0 ],
-					"text" : "sat-envelope-follower 8"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-348",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 1100.0, 458.0, 134.0, 20.0 ],
-					"text" : "sat-envelope-follower 9"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-349",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 1200.0, 459.0, 140.0, 20.0 ],
-					"text" : "sat-envelope-follower 10"
-				}
-
-			}
  ],
 		"lines" : [ 			{
 				"patchline" : 				{
@@ -5685,96 +5541,6 @@
 					"disabled" : 0,
 					"hidden" : 0,
 					"source" : [ "obj-28", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-340", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-28", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-341", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-28", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-342", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-28", 4 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-343", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-28", 6 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-344", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-28", 8 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-345", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-28", 10 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-346", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-28", 12 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-347", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-28", 14 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-348", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-28", 16 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-349", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-28", 18 ]
 				}
 
 			}
@@ -6705,46 +6471,13 @@
 				}
 
 			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-63", 0 ],
-					"disabled" : 0,
-					"hidden" : 0,
-					"source" : [ "obj-85", 0 ]
-				}
-
-			}
  ],
 		"parameters" : 		{
 			"obj-56" : [ "num-sound-sources", "live.numbox", 0 ],
-			"obj-348::obj-41" : [ "Follower[34]", "Follower", 0 ],
-			"obj-345::obj-41" : [ "Follower[23]", "Follower", 0 ],
-			"obj-341::obj-41" : [ "Follower[28]", "Follower", 0 ],
-			"obj-342::obj-41" : [ "Follower[30]", "Follower", 0 ],
-			"obj-344::obj-41" : [ "Follower[32]", "Follower", 0 ],
-			"obj-54" : [ "live.text", "live.text", 0 ],
-			"obj-340::obj-41" : [ "Follower[22]", "Follower", 0 ],
-			"obj-349::obj-41" : [ "Follower[24]", "Follower", 0 ],
-			"obj-347::obj-41" : [ "Follower[33]", "Follower", 0 ],
-			"obj-346::obj-41" : [ "Follower[29]", "Follower", 0 ],
-			"obj-343::obj-41" : [ "Follower[31]", "Follower", 0 ]
+			"obj-54" : [ "live.text", "live.text", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "sat-envelope-follower.maxpat",
-				"bootpath" : "/Volumes/Audio II/Projects/SAT Residency - Liquid Architecture [2017]/Max Patches/Abstractions",
-				"patcherrelativepath" : "./Abstractions",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "M4L.envfol~.maxpat",
-				"bootpath" : "/Applications/Max 6.1/patches/m4l-patches/Tools resources",
-				"patcherrelativepath" : "../../../../../Applications/Max 6.1/patches/m4l-patches/Tools resources",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "spat.virtualloudspeakers.maxpat",
 				"bootpath" : "/Applications/Max 6.1/packages/ircam-spat/patchers",
 				"patcherrelativepath" : "../../../../../Applications/Max 6.1/packages/ircam-spat/patchers",
