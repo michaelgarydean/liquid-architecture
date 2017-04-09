@@ -10,7 +10,7 @@
 
 /**
  * ==================================
- * Object attributes
+ * Object attributes and globals
  * ==================================
  */
 
@@ -24,12 +24,12 @@ var envelope_followers = new Array(128);
 //Initialize number of sources that exists
 var num_sources = 0;
 
-//Get the adc~ object used for the audio input of all the sources
-var audio_input = this.patcher.getnamed("audio-input");
+//The adc~ object used for the audio input of all the sources
+var audio_input;
 
 /**
  * ==================================
- * Input functions
+ * Functions
  * ==================================
  */
 
@@ -39,8 +39,14 @@ var audio_input = this.patcher.getnamed("audio-input");
  * @param Int num_sources	The number of sound sources.
  * @return void
  */
-function msg_int(requested_sources) {	
-	//Don't bother with function if no sources are requested.
+function msg_int(requested_sources) {
+
+	//Remove envelope followers created during past request (if any request exists)
+	if(num_sources) {
+		destroy_existing_envelope_followers(num_sources);
+	}
+		
+	//Don't create sources if none are requested.
 	if(requested_sources <= 0) {
 		return;
 	}
@@ -49,21 +55,19 @@ function msg_int(requested_sources) {
 	if(requested_sources > 128) {
 		requested_sources = 128;
 	}
-
-	//Remove envelope followers created during past request (if any request exists)
-	if(num_sources) {
-		destroy_existing_envelope_followers(num_sources);
-	}
 	
 	//Update num_sources to the new number requested by object input;
 	num_sources = requested_sources;
+	
+	//The audio input device to envelope follow (an [adc~] object)
+	audio_input = this.patcher.getnamed("audio-input");
 
 	/**
 	 * Create envelope followers for each source, if any have been requested, and connect them
 	 * to the audio input.
 	 */
 	if(requested_sources) {
-		create_envelope_followers_for_sources(num_sources);
+		create_envelope_followers_for_sources(audio_input, num_sources);
 	}
 }
 
@@ -76,6 +80,7 @@ function msg_int(requested_sources) {
  * @return void
  */
 function destroy_existing_envelope_followers(num_sources) {
+	
 	/** 
 	 * Since we declared the maximum number of envelope followers by pre-sizing the array, 
 	 * just remove the number of sources previously requested. Don't loop the whole arry.
@@ -90,7 +95,7 @@ function destroy_existing_envelope_followers(num_sources) {
  *
  * @param Int num_sources	The number of sources to create envelope followers for
  */
-function create_envelope_followers_for_sources(num_sources) {
+function create_envelope_followers_for_sources(audio_input, num_sources) {
 	
 	for(var source=0; source<num_sources; source++) {
 		
@@ -105,17 +110,28 @@ function create_envelope_followers_for_sources(num_sources) {
 /**
  * Create an envelope follower abstraction for a specific sound source.
  *
- * @param Int source	The index of the sound source for which the envelope follower is being created.
+ * @param Int source					The index of the sound source for which the envelope follower is being created.
+ * @return MaxObj envelope_follower		The newly created max object (the envelope follower)
  */
 function create_envelope_follower(source) {
+	
 	/**
 	 * Create a new instance of the abstraction for the envelope follower using the current source as an argument
 	 * The argument is used in the abstraction to properly set up the OSC message and tag it.
 	 */
 	var env_follower_abstraction_name = "sat-envelope-follower";
-	var position_x = 300+source*100;
+	
+	//Calculate coordinates for new object
+	var position_x = 300+source*150;
 	var position_y = 450+source;
-	var envelope_follower = this.patcher.newdefault(position_x, position_y, env_follower_abstraction_name, source+1);
+	
+	//Create MaxObjs
+	var envelope_follower = this.patcher.newdefault(
+		position_x, 
+		position_y, 
+		env_follower_abstraction_name, 
+		source+1
+	);
 	
 	return envelope_follower;
 }
