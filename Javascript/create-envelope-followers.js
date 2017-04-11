@@ -119,7 +119,7 @@ function create_envelope_follower(source) {
 	 * Create a new instance of the abstraction for the envelope follower using the current source as an argument
 	 * The argument is used in the abstraction to properly set up the OSC message and tag it.
 	 */
-	var env_follower_abstraction_name = "sat-envelope-follower";
+	var env_follower_abstraction_name = "envelope-follower";
 	
 	//Calculate coordinates for new object
 	var position_x = 300+source*150;
