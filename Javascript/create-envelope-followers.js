@@ -92,10 +92,14 @@ function destroy_existing_envelope_followers(num_sources) {
 
 /**
  * Create a new instance of the envelope follower abstraction for each of the requested sources
+ * 
+ * We assume the envelope follower and incoming audio are both in stereo.
  *
  * @param Int num_sources	The number of sources to create envelope followers for
  */
 function create_envelope_followers_for_sources(audio_input, num_sources) {
+	//The outlet of the audio input object to connect to the inlet of the envelope follower
+	var audio_input_outlet;
 	
 	for(var source=0; source<num_sources; source++) {
 		
@@ -103,7 +107,13 @@ function create_envelope_followers_for_sources(audio_input, num_sources) {
 		envelope_followers[source] = create_envelope_follower(source);
 	
 		//Connect the new envelope follower to the adc~ (which uses the script name "audio-input")
-		this.patcher.connect(audio_input, source*2, envelope_followers[source], 0);
+		audio_input_outlet = source*2;
+		
+		//Connect the left channel
+		this.patcher.connect(audio_input, audio_input_outlet, envelope_followers[source], 0);
+		
+		//Connect the right channel
+		this.patcher.connect(audio_input, audio_input_outlet+1, envelope_followers[source], 1);
 	}
 }
 
@@ -122,7 +132,7 @@ function create_envelope_follower(source) {
 	var env_follower_abstraction_name = "envelope-follower";
 	
 	//Calculate coordinates for new object
-	var position_x = 300+source*150;
+	var position_x = 400+source*125;
 	var position_y = 450+source;
 	
 	//Create MaxObjs

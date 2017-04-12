@@ -5,7 +5,7 @@
 
 /**
  * ==================================
- * Object definitions
+ * Object attributes
  * ==================================
  */
 
@@ -20,8 +20,8 @@ var abstractions = new Array(128);
 var num_sources = 0;
 
 //The MaxObjs to connect each abstraction instance to.
-var input_connections;
-var output_connections;
+var input_object;
+var output_object;
 
 /**
  * ==================================
@@ -57,16 +57,14 @@ function msg_int(requested_sources) {
 	
 	//The audio input device to envelope follow (an [adc~] object)
 	//@TODO get the object's scripting name through argument on this js object
-	//@TODO Store the list of objects to get connected
-	//input_connection = this.patcher.getnamed("trigger-input");
-	//output_connection = this.patcher.getnamed("output-router");
+	input_object = this.patcher.getnamed("audio-input");
 
 	/**
 	 * Create instances of the abstraction for each source, if any have been requested, and connect them
 	 * to the input object.
 	 */
 	if(requested_sources) {
-		create_abstractions_for_sources(num_sources);
+		create_abstractions_for_sources(input_object,num_sources);
 	}
 }
 
@@ -94,53 +92,15 @@ function destroy_existing_abstraction_instances(num_sources) {
  *
  * @param Int num_sources	The number of sources to create abstractions for
  */
-function create_abstractions_for_sources(num_sources) {
+function create_abstractions_for_sources(input_object, num_sources) {
 	
 	for(var source=0; source<num_sources; source++) {
 		
 		//Keep a reference of the abstraction so it can be removed later if neccessary
 		abstractions[source] = create_abstraction_instance(source);
-		
-		//Connect the new abstraction
-		connect_abstraction_to_scripted_objects(abstractions[source]);
-	}
-}
-
-/**
- * Make connections between the abstractions and scripted objects in the patch
- *
- * @param MaxObj abstraction	The abstraction to connect the scripted objects to.
- */
-function connect_abstraction_to_scripted_objects(abstraction) {
-	var input_object;
-	var output_object;
-	var i;
 	
-	/**
-	 * Make connections between the objects inlets and the specified objects
-	 */
-	if(input_connections != undefined) {
-		
-		for(i=0; i < input_connections.length; i++) {
-			input_object = this.patcher.getnamed(input_connections[i]);
-			this.patcher.connect(input_object, 0, abstraction, i);
-		}
-	} else {
-		post("Input objects not defined. Use the set_input_objects message \n");
-	}
-
-	/**
-	 * Make connections between the objects outlets and the specified objects
-	 */
-	if(output_connections != undefined) {
-		
-		for(i=0; i < output_connections.length; i++) {
-			output_object = this.patcher.getnamed(output_connections[i]);
-			this.patcher.connect(abstraction, i, output_object, 0);
-		}
-		
-	} else {
-		post("Output objects not defined. Use the set_output_objects message \n");
+		//Connect the new envelope follower to the adc~ (which uses the script name "audio-input")
+		this.patcher.connect(input_object, source*2, abstractions[source], 0);
 	}
 }
 
@@ -156,16 +116,12 @@ function create_abstraction_instance(source) {
 	 * Create a new instance of the abstraction for the abstraction using the current source as an argument
 	 * The argument is used in the abstraction to properly set up the OSC message and tag it.
 	 */
-	var abstraction_filename = get_abstraction_filename();
-	
-	if(abstraction_filename == null) {
-		return;
-	}
+	var abstraction_filename= "source-xyz";
 	
 	//Calculate coordinates for new object
 	//@TODO Get position of input object and put objects just a bit below it
-	var position_x = 100+source*180;
-	var position_y = 200+source;
+	var position_x = 300+source*150;
+	var position_y = 450+source;
 	
 	//Create MaxObjs
 	var abstraction = this.patcher.newdefault(
@@ -176,47 +132,4 @@ function create_abstraction_instance(source) {
 	);
 	
 	return abstraction;
-}
-
-/**
- * Define the filename of the abstraction instances to be created
- *
- * @param Int source					The index of the sound source for which the abstraction is being created.
- * @return MaxObj abstraction			The newly created max object (the abstraction)
- */
-function get_abstraction_filename() {
-	
-	//If no argument has been defined in the js object, update the Max console.
-	if(jsarguments[1] == undefined) {
-		post("No abstraction file is specified"); //@TODO if no abstraction, return from all functions
-		return null;
-		
-	//Otherwise return the abstraction filename.
-	} else {
-		return jsarguments[1];
-	}
-}
-
-/**
- * Set the objects to connect the abstractions' inlets.
- *
- * Objects are connected using the index of each object as the inlet index.
- * ex. set_input_objects object1 object2
- * This means object1's outlet 0 will be connected to each abstraction's inlet 0,
- * and object2's outlet 0 will be connected to each abstraction's inlet 1.
- *
- * @param list scripting_names			A list of scripting names of the objects to be connected to the abstraction's inlets
- */
-function set_input_objects(scripting_names) {
-	input_connections = arrayfromargs(arguments);
-}
-
-/**
- * Set the objects to connect the abstractions' outlets.
- *
- * @see set_input_objects()
- * @param list scripting_names			A list of scripting names of the objects to be connected to the abstraction's inlets
- */
-function set_output_objects(scripting_names) {
-	output_connections = arrayfromargs(arguments);
 }
