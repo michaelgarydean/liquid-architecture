@@ -150,7 +150,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 681.5, 283.0, 50.0, 18.0 ],
-					"text" : "4410."
+					"text" : "440"
 				}
 
 			}
@@ -164,7 +164,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 555.0, 283.0, 50.0, 18.0 ],
-					"text" : "44.1"
+					"text" : "44"
 				}
 
 			}
@@ -241,6 +241,8 @@
 							"parameter_shortname" : "Release",
 							"parameter_type" : 0,
 							"parameter_mmax" : 500.0,
+							"parameter_initial_enable" : 1,
+							"parameter_initial" : [ 10.0 ],
 							"parameter_unitstyle" : 2,
 							"parameter_exponent" : 2.71828
 						}
@@ -297,6 +299,8 @@
 							"parameter_shortname" : "Attack",
 							"parameter_type" : 0,
 							"parameter_mmax" : 150.0,
+							"parameter_initial_enable" : 1,
+							"parameter_initial" : [ 1.0 ],
 							"parameter_unitstyle" : 2,
 							"parameter_exponent" : 2.71828
 						}
@@ -355,12 +359,12 @@
 					"fontsize" : 12.0,
 					"frgb" : 0.0,
 					"id" : "obj-22",
-					"linecount" : 4,
+					"linecount" : 5,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 745.0, 333.0, 154.0, 60.0 ],
-					"text" : "@TODO Go through each iteration in the MSP tutorial. Which is the most effective?"
+					"patching_rect" : [ 745.0, 333.0, 154.0, 74.0 ],
+					"text" : "@TODO Go through each iteration in the MSP tutorial. Which is the most effective envelope following technique here?"
 				}
 
 			}
@@ -782,8 +786,8 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-14" : [ "attack", "Attack", 0 ],
-			"obj-21" : [ "release", "Release", 0 ]
+			"obj-21" : [ "release", "Release", 0 ],
+			"obj-14" : [ "attack", "Attack", 0 ]
 		}
 ,
 		"dependency_cache" : [  ]
