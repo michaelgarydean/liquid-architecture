@@ -1,0 +1,14 @@
+CNMAT
+LibraryList.txt
+MapButtonLFO.maxpat
+Max for Live Packs
+Max-MSP-Foreverb-master
+MultiMap Project
+OSC Send Project
+RTC-lib_6.0
+SPAT_package
+aka.shell
+lh_midiinoutV1.03
+rev31
+shell
+slice
