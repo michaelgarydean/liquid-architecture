@@ -1,13 +1,15 @@
+// Liquid Architecture
+// Particle Sprite Rendering Vertex Shader
 // MAT shader for particle sprites with positional audio data
 
 // inputs
 uniform sampler2D sPositionMap;
 //uniform sampler2D sNormalMap;
 uniform sampler2D sColorMap; // particle base colors
-uniform sampler2D sColorRamp; // gradient for sound based coloring
+
 uniform vec3 uResolution;
-uniform vec4 uSound1; // audio position (xyz) and value (w)
 uniform float uParticleSize;
+uniform vec4 uSound1; // audio position (xyz) and value (w)
 
 // outputs
 out Vertex {
@@ -17,7 +19,7 @@ out Vertex {
 	vec3 norm;
 } vVert;
 
-out vec4 soundDistance;
+out float soundDistance;
 
 // ---------------------------------------------------------------------------
 
@@ -63,7 +65,7 @@ void main()
     vVert.camVector.stp = camVec.stp;
 
     // distance from particle to sound source in camera space
-    soundDistance.x = distanceToPoint(uSound1.xyz, camSpaceVert);
+    soundDistance = distanceToPoint(uSound1.xyz, camSpaceVert);
 
 #else // TD_PICKING_ACTIVE
 
