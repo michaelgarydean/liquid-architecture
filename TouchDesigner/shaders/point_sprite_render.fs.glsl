@@ -3,6 +3,7 @@
 // MAT shader for particle sprites with positional audio data
 
 uniform sampler2D sColorRamp; // gradient for sound based coloring
+uniform sampler2D sSpriteTex;
 
 uniform float uSpotlightBlend;
 
@@ -35,7 +36,8 @@ vec4 applyColorRamp(vec4 color, float dist, float magnitude) {
 void main()
 {
 	TDCheckDiscard(); // discard unused pixels
-
     vec4 color = applyColorRamp(vVert.color, soundDistance, clamp(uSound1.w, 0.0, 1.0));
-	fragColor[0] = color;
+    vec2 pointUVs = gl_PointCoord;
+    vec4 texture = texture2D(sSpriteTex, pointUVs);
+	fragColor[0] = texture * color;
 }
