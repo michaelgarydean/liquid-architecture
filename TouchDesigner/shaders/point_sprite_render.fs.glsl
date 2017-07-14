@@ -4,6 +4,8 @@
 
 uniform sampler2D sColorRamp; // gradient for sound based coloring
 
+uniform float uSpotlightBlend;
+
 // each uSoundN vector stores xyz position of the sound + amplitude value
 uniform vec4 uSound1;
 
@@ -26,7 +28,7 @@ layout(location = 0) out vec4 fragColor[TD_NUM_COLOR_BUFFERS];
 // applies alpha using magnitude
 vec4 applyColorRamp(vec4 color, float dist, float magnitude) {
 	vec4 rampColor = texture(sColorRamp, vec2(0.5, clamp(dist,0.0,1.0)));
-    return vec4(rampColor.rgb, (1.0-dist)*magnitude);//mix(vec4(color.rgb, 1.0-magnitude), vec4(rampColor.rgb, magnitude), dist);
+    return mix(color, vec4(rampColor.rgb, (1.0-dist)*magnitude), uSpotlightBlend);
 }
 
 // ---------------------------------------------------------------------------
