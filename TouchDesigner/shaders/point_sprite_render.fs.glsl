@@ -25,8 +25,8 @@ layout(location = 0) out vec4 fragColor[TD_NUM_COLOR_BUFFERS];
 // picks a color from the sColorRamp gradient using the dist as vertical texture coordinate
 // applies alpha using magnitude
 vec4 applyColorRamp(vec4 color, float dist, float magnitude) {
-	vec4 rampColor = texture(sColorRamp, vec2(0.5, dist));
-    return vec4(rampColor.rgb, 1.0-(dist/magnitude));//mix(vec4(color.rgb, dist), vec4(rampColor.rgb, rampColor.a * dist), uSound1.w);
+	vec4 rampColor = texture(sColorRamp, vec2(0.5, clamp(dist,0.0,1.0)));
+    return vec4(rampColor.rgb, (1.0-dist)*magnitude);//mix(vec4(color.rgb, 1.0-magnitude), vec4(rampColor.rgb, magnitude), dist);
 }
 
 // ---------------------------------------------------------------------------
@@ -34,6 +34,6 @@ void main()
 {
 	TDCheckDiscard(); // discard unused pixels
 
-    vec4 color = applyColorRamp(vVert.color, soundDistance, uSound1.w);
+    vec4 color = applyColorRamp(vVert.color, soundDistance, clamp(uSound1.w, 0.0, 1.0));
 	fragColor[0] = color;
 }

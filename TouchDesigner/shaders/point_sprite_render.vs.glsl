@@ -6,10 +6,13 @@
 uniform sampler2D sPositionMap;
 //uniform sampler2D sNormalMap;
 uniform sampler2D sColorMap; // particle base colors
+uniform sampler2D sColorRamp; // gradient for sound based coloring
 
 uniform vec3 uResolution;
 uniform float uParticleSize;
+
 uniform vec4 uSound1; // audio position (xyz) and value (w)
+
 
 // outputs
 out Vertex {
