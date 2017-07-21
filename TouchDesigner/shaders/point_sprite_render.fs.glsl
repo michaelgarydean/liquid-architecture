@@ -37,7 +37,7 @@ void main()
 {
 	TDCheckDiscard(); // discard unused pixels
     vec4 color = applyColorRamp(vVert.color, soundDistance, clamp(uSound1.w, 0.0, 1.0));
-    vec2 pointUVs = gl_PointCoord;
-    vec4 texture = texture2D(sSpriteTex, pointUVs);
-	fragColor[0] = texture * color;
+    vec2 pointUVs = -gl_PointCoord;
+    vec4 texture = texture(sSpriteTex, pointUVs);
+	fragColor[0] = TDOutputSwizzle(texture * color);
 }

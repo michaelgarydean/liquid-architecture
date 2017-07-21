@@ -42,6 +42,17 @@ void main()
     int rowIndex = int(floor(id / uResolution.x));
 	float u = ((id - (rowIndex * uResolution.x) + 0.5)) / uResolution.x;
 	float v = (rowIndex + 0.5) / uResolution.y;
+    float res = uResolution.x;
+
+
+    // other stuff
+	float off = mod(id,res);
+
+	id = floor(id/res);
+
+    float uu = id/res;
+    float vv = off/res;
+    // end other stuff
 
 	vec2 mapCoord = vec2(u,v);
 	vec4 position = texture(sPositionMap, mapCoord);
@@ -51,7 +62,7 @@ void main()
 	gl_Position = TDWorldToProj(worldSpaceVert);
 
     // particle size
-	gl_PointSize = uParticleSize;
+	gl_PointSize = uParticleSize;// * vv;
 
     // This is here to ensure we only execute lighting etc. code
     // when we need it. If picking is active we don't need this, so
@@ -61,11 +72,14 @@ void main()
 #ifndef TD_PICKING_ACTIVE
 
     vec3 camSpaceNorm = uTDMat.camForNormals * TDDeformNorm(N).xyz;
+    vec3 camVec = -camSpaceVert.xyz;
+
     vVert.norm.stp = camSpaceNorm.stp;
     vVert.camSpaceVert.xyz = camSpaceVert.xyz;
-    vVert.color = texture(sColorMap, mapCoord);
-    vec3 camVec = -camSpaceVert.xyz;
     vVert.camVector.stp = camVec.stp;
+    vVert.color = texture(sColorMap, mapCoord);
+
+    //vVert.color.a = vv; // TEMP
 
     // distance from particle to sound source in camera space
     soundDistance = distanceToPoint(uSound1.xyz, camSpaceVert);
