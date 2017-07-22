@@ -13,16 +13,16 @@ uniform float uParticleSize;
 
 uniform vec4 uSound1; // audio position (xyz) and value (w)
 
-
 // outputs
 out Vertex {
 	vec4 color;
 	vec3 camSpaceVert;
 	vec3 camVector;
 	vec3 norm;
+    //vec3 worldSpaceVert;
+    float soundDistance;
 } vVert;
 
-out float soundDistance;
 
 // ---------------------------------------------------------------------------
 
@@ -45,13 +45,13 @@ void main()
     float res = uResolution.x;
 
 
-    // other stuff
-	float off = mod(id,res);
-
-	id = floor(id/res);
-
-    float uu = id/res;
-    float vv = off/res;
+    // from particle flow field shader -- not needed except to use vv value for alpha
+	// float off = mod(id,res);
+    //
+	// id = floor(id/res);
+    //
+    // float uu = id/res;
+    // float vv = off/res;
     // end other stuff
 
 	vec2 mapCoord = vec2(u,v);
@@ -78,11 +78,12 @@ void main()
     vVert.camSpaceVert.xyz = camSpaceVert.xyz;
     vVert.camVector.stp = camVec.stp;
     vVert.color = texture(sColorMap, mapCoord);
+    //vVert.worldSpaceVert = worldSpaceVert.xyz;
 
     //vVert.color.a = vv; // TEMP
 
     // distance from particle to sound source in camera space
-    soundDistance = distanceToPoint(uSound1.xyz, camSpaceVert);
+    vVert.soundDistance = distanceToPoint(uSound1.xyz, camSpaceVert);
 
 #else // TD_PICKING_ACTIVE
 
