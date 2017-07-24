@@ -3,6 +3,8 @@ uniform float uReset;
 
 uniform vec3 bounds; // walls?
 
+uniform float multiplier = 20.0;
+
 layout(location = 0) out vec4 outPos;
 layout(location = 1) out vec4 outVel;
 
@@ -56,7 +58,7 @@ void reactToPrey( inout vec3 acc, vec3 predatorPos )
 			//			vec3 dir		= myPos - pos.xyz;
 			//
 			vec2 tc					= vec2( float(x), float(y) ) * invPreyFboDim + invPreyFboDim * 0.5;
-			vec3 preyPos			= texture( sTD2DInputs[3], tc ).rgb;
+			vec3 preyPos			= texture( sTD2DInputs[3], tc ).rgb * multiplier;
 			float preyZoneRadius	= 150.0 * 150.0;
 
 			vec3 dirToPrey			= predatorPos - preyPos;
@@ -72,23 +74,24 @@ void reactToPrey( inout vec3 acc, vec3 predatorPos )
 
 void simulatePredators()
 {
-	float zoneRadius	 = 130.0 + 100.0;
+	float zoneRadius	 = 200.0;
 	float zoneRadiusSqrd = zoneRadius * zoneRadius;
 	float minThresh		 = 0.14;
 	float maxThresh		 = 0.20;
 	float maxSpeed		 = 3.0 + 7.0;
 
 	vec4 vPos = texture( sTD2DInputs[0], vUV.st );
-	vec3 myPos = vPos.rgb;
+	vec3 myPos = vPos.rgb * multiplier;
 	float leadership = vPos.a;
 
 	vec4 vVel = texture( sTD2DInputs[1], vUV.st );
-	vec3 myVel = vVel.rgb;
+	vec3 myVel = vVel.rgb * multiplier;
 	float myCrowd = vVel.a;
 
 	vec3 acc			= vec3( 0.0, 0.0, 0.0 );
 	float invFboDim = uTD2DInfos[0].res.x;
 	float predatorBufSize = uTD2DInfos[0].res.z;
+    int fboDim = int(predatorBufSize);
 	float offset		= invFboDim * 0.5;
 
 	int myX				= int( vUV.s * predatorBufSize );
@@ -96,7 +99,6 @@ void simulatePredators()
 	float crowded		= 2.0;
 
 	// PREY WILL RESPECT THE 3-ZONE FLOCKING
-	int fboDim = int(predatorBufSize);
 	for( int y=0; y<fboDim; y++ ) {
 		for( int x=0; x<fboDim; x++ ) {
 			if( x == myX && y == myY ) {
@@ -126,7 +128,7 @@ void simulatePredators()
 							float adjustedPercent	= ( percent - minThresh )/( threshDelta + 0.0000001 );
 							float F					= ( 1.0 - ( cos( adjustedPercent * 6.28318 ) * -0.5 + 0.5 ) );
 
-							acc += normalize( texture( sTD2DInputs[1], tc ).xyz ) * F * uDelta * leadership * 0.25;
+							acc += normalize( texture( sTD2DInputs[1], tc ).xyz * multiplier ) * F * uDelta * leadership * 0.25;
 
 							// IF FRIEND IS FAR, BUT WITHIN THE ACCEPTABLE ZONE, ATTRACT
 					} else if( dist < zoneRadius ) {
@@ -211,8 +213,8 @@ void simulatePredators()
 	// update position
 	myPos = myPos + ( myVel * ( myCrowd * 0.05 ) * uDelta );
 
-	outPos = vec4(myPos, leadership);
-	outVel = vec4(myVel, myCrowd);
+	outPos = vec4(myPos / multiplier, leadership);
+	outVel = vec4(myVel / multiplier, myCrowd);
 }
 
 // MAIN
