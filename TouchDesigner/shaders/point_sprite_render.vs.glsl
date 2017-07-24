@@ -11,6 +11,13 @@ uniform sampler2D sColorRamp; // gradient for sound based coloring
 uniform vec3 uResolution;
 uniform float uParticleSize;
 
+// OPTIONS:
+// x = particleSizeByDistance
+// y = TBD
+// z = TBD
+// w = TBD
+uniform vec4 uOptions;
+
 uniform vec4 uSound1; // audio position (xyz) and value (w)
 
 // outputs
@@ -62,7 +69,12 @@ void main()
 	gl_Position = TDWorldToProj(worldSpaceVert);
 
     // particle size
-	gl_PointSize = uParticleSize;// * vv;
+    if (uOptions.x > 0.0) {
+        // particles scaled by distace to camera
+        gl_PointSize = (uParticleSize * 5.0) / length(camSpaceVert);
+    } else {
+        gl_PointSize = uParticleSize;
+    }
 
     // This is here to ensure we only execute lighting etc. code
     // when we need it. If picking is active we don't need this, so
