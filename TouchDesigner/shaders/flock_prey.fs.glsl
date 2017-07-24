@@ -1,3 +1,7 @@
+// Liquid Architecture
+// Flocking Behaviour Fragment Shader
+// TOP shader for applying flocking motion to particle position map
+
 uniform float uDelta;
 uniform float uReset;
 
