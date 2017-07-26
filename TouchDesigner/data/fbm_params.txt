@@ -1,0 +1,2 @@
+turbulence	0.264
+respawn	1
