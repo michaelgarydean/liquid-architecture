@@ -100,7 +100,7 @@ void main() {
         outPos = mix(pos, initialPos, uReset);
     } else {
         // simulation stopped -- initial positions
-        simPos = pos;
+        simPos = initialPos;
         outPos = initialPos;
     }
 }
