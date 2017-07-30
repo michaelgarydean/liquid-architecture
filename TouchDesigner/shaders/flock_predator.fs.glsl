@@ -30,7 +30,7 @@ void reactToLanterns( inout vec3 acc, vec3 _myPos )
 	//    for( float i=0.0; i<numLights; i+=1.0 ) {
 	//        vec4 LANTERN	= texture( lanternsTex, vec2( index, 0.25 ) );
 	vec3 pos		= vec3(0.0);//LANTERN.xyz;
-	float radius	= 255.0;//LANTERN.w + 250.0;
+	float radius	= 5.0;//LANTERN.w + 250.0;
 	float radiusSqrd= radius * radius;
 
 	vec3 dirToLantern		= _myPos - pos;

@@ -43,9 +43,9 @@ void reactToLanterns( inout vec3 acc, vec3 _myPos )
         float distToLanternSqrd	= distToLantern * distToLantern;
 
         // IF WITHIN THE ZONE, REACT TO THE LANTERN
-        if( distToLanternSqrd > minRad && distToLanternSqrd < maxRad ) {
+        //if( distToLanternSqrd > minRad && distToLanternSqrd < maxRad ) {
             acc -= normalize( dirToLantern ) * ( ( maxRad - minRad ) / distToLanternSqrd ) * 0.01075 * uDelta;
-        }
+        //}
 
         // IF TOO CLOSE, MOVE AWAY MORE RAPIDLY
         if( distToLantern < radius * 1.1 ) {
