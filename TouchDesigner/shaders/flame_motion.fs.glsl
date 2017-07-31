@@ -11,6 +11,9 @@ uniform float uReset;
 // y = life
 // z = speed
 uniform vec4 uParams1 = vec4(0.264, 1.0, 0.5, 0.0);
+float turbulence = uParams1.x;
+float respawn = uParams1.y;
+float speed = uParams1.z;
 
 // INPUT SAMPLERS
 // 0 = init position
@@ -62,14 +65,14 @@ void main() {
 
     if (uReset == 0.0) {
         // run simulation
-        vec2 uv = vTexcoord * 0.00942;
+        vec2 uv = vTexcoord * 0.00942 * uTime;
     	vec3 ut = vec3(uv, uTime*0.4172);
-    	vec3 uu = vec3(0,0, uTime*1.9272);
+    	vec3 uu = vec3(0,0, uTime*0.9272);
 
-    	float sc = fbm(pos.xzy + uu) * uParams1.x;
+    	float sc = fbm(pos.xzy + uu) * turbulence * uTime;
 
         // position alpha = particle age
-    	pos.a += fbm((pos.xyz + uu) * 0.3) * 0.01 * (uParams1.y + 0.001);
+    	pos.a += fbm((pos.xyz + uu) * 0.3) * 0.01 * (respawn + 0.001);
 
         // noise vector
     	vec3 nv = vec3(
@@ -78,7 +81,7 @@ void main() {
         				fbm(sc*pos.yzx + ut) );
 
     	nv -= vec3(0.5);
-        
+
     	if (pos.a>=1) {
             // respawn
     		pos.xyz = initialPos.rgb;

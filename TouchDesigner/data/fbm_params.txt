@@ -1,3 +1,3 @@
-turbulence	0.264
-respawn	0.5
-speed	0.25
+turbulence	0.294
+respawn	0.05
+speed	0.05
