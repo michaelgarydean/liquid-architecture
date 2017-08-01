@@ -57,12 +57,12 @@ void main()
     // offset for second line vertex
     float lineHeight = 0.0;
     vec4 height = texture(sHeightMap, mapCoord);
-    if (mod(gl_VertexID,2) == 1 && height.x > 0.5) {
+    if (mod(gl_VertexID,2) == 1 && height.x > 0.25) {
         lineHeight = height.y;
     }
-    //worldSpaceVert.y -= lineHeight; // lines extending in world space
+    worldSpaceVert.y -= lineHeight; // lines extending in world space
     vec4 projSpaceVert = TDWorldToProj(worldSpaceVert);
-    projSpaceVert.y -= lineHeight; // lines extending in projection space
+    //projSpaceVert.y -= lineHeight; // lines extending in projection space
 
 	gl_Position = projSpaceVert;
 }

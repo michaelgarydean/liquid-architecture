@@ -90,7 +90,7 @@ void main()
         vec4 lastPos = texture(sTD2DInputs[1], vUV.st);
         vec4 initialPos = texture(sTD2DInputs[7], vUV.st);
         outPos = lastPos;
-        finalPos = mix(lastPos, initialPos, uReset);
+        finalPos = lastPos;//mix(lastPos, initialPos, uReset);
     } else {
         // stopped -- initial positions
         outNorm = texture(sTD2DInputs[6], vUV.st);

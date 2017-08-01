@@ -16,13 +16,13 @@ uniform float uDelta;
 
 // OUTPUTS
 layout(location = 0) out vec4 outPos;
-layout(location = 1) out vec4 outVel;
+//layout(location = 1) out vec4 outFinal;
 
 
 void reset() {
 	vec4 initialPos = texture(sTD2DInputs[2], vUV.st);
 	outPos = initialPos;
-	outVel = vec4(0.0);
+	//outVel = vec4(0.0);
 }
 
 void main()
@@ -35,17 +35,19 @@ void main()
         vec3 noise = texture(sTD2DInputs[4], vUV.st).rgb;
         //vec3 vel = texture(sTD2DInputs[2], vUV.st).rgb;
         vec3 targetPos = texture(sTD2DInputs[2], vUV.st).rgb * 20.0 + noise;
-        vec3 targetVel = texture(sTD2DInputs[3], vUV.st).rgb * 20.0 + noise;
+        vec3 targetVel = texture(sTD2DInputs[3], vUV.st).rgb + noise;
 
-        outVel = (vec4(targetVel, 1.0) / distance(pos.rgb, targetPos)) * 10.0;//vec4(normalize(targetPos - pos.rgb), 1.0);// * targetVel, 1.0);
-		outPos = pos + uDelta * outVel; // symplectic euler position update
+        //targetVel.y *= 0.5; // dampen y velocity so particles don't get too far
+
+        //outVel = (vec4(targetVel, 1.0) / distance(pos.rgb, targetPos)) * 10.0;//vec4(normalize(targetPos - pos.rgb), 1.0);// * targetVel, 1.0);
+		outPos = pos + uDelta * vec4(targetVel, 1.0); // symplectic euler position update
     } else if (uReset < 1.0) {
         // transitioning out -- mix last simulated position and initial
-        outVel = vec4(0.0);
-        outPos = mix(pos, initialPos, uReset);
+        //outVel = vec4(0.0);
+        outPos = pos;//mix(pos, initialPos, uReset);
     } else {
         // stopped -- initial positions
-        outVel = vec4(0.0);
+        //outVel = vec4(0.0);
         outPos = initialPos;
     }
 }

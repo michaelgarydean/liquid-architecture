@@ -1,5 +1,5 @@
 // Liquid Architecture
-// Formation Fragment Shader
+// LERP2 - Formation Fragment Shader
 // TOP shader for moving paticles into target formation
 
 uniform float uDelta;

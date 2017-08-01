@@ -1,5 +1,5 @@
 // Liquid Architecture
-// Flocking Behaviour Fragment Shader
+// Flocking Behaviour Fragment Shader - Prey
 // TOP shader for applying flocking motion to particle position map
 
 uniform float uDelta;

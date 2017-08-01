@@ -100,7 +100,7 @@ void main() {
     } else if (uReset < 1.0) {
         // transition to stop -- mix last simulated position and initial
         simPos = pos;
-        outPos = mix(pos, initialPos, uReset);
+        outPos = pos;//mix(pos, initialPos, uReset);
     } else {
         // simulation stopped -- initial positions
         simPos = initialPos;
