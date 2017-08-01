@@ -35,7 +35,7 @@ void main()
         vec3 noise = texture(sTD2DInputs[4], vUV.st).rgb;
         //vec3 vel = texture(sTD2DInputs[2], vUV.st).rgb;
         vec3 targetPos = texture(sTD2DInputs[2], vUV.st).rgb * 20.0 + noise;
-        vec3 targetVel = texture(sTD2DInputs[3], vUV.st).rgb + noise;
+        vec3 targetVel = texture(sTD2DInputs[3], vUV.st).rgb * 0.1 - noise * 0.001;
 
         //targetVel.y *= 0.5; // dampen y velocity so particles don't get too far
 
