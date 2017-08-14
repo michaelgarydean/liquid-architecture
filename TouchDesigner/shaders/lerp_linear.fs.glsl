@@ -65,5 +65,5 @@ void main()
     float step = uStep;//cubicInOut(uStep);
     pos = mix(startPos, targetPos, step);
 
-    outPos = pos;
+    outPos = vec4(pos.xyz, 1.0);
 }
