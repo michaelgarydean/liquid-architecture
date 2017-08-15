@@ -7,7 +7,7 @@ uniform float uReset;
 
 uniform vec3 bounds;
 
-uniform float multiplier = 20.0;
+uniform float multiplier = 50.0;
 
 layout(location = 0) out vec4 outPos;
 layout(location = 1) out vec4 outVel;
@@ -128,7 +128,7 @@ void simulatePrey()
 			} else {
 				vec2 tc			= vec2( float(x), float(y) ) * invFboDim + offset;
 				vec4 pos		= texture( sTD2DInputs[0], tc );
-				vec3 dir		= myPos - pos.xyz;
+				vec3 dir		= myPos - (pos.xyz * multiplier);
 
 				float dist		= length( dir );
 				float distSqrd	= dist * dist;
@@ -193,14 +193,12 @@ void simulatePrey()
 
 	// AVOID WALLS
 	vec3 roomBounds = bounds;//vec3(350.0, 200.0, 350.0);
-	//if( power > 0.5 ) {
 	float xPull	= tempNewPos.x/( roomBounds.x );
 	float yPull	= tempNewPos.y/( roomBounds.y );
 	float zPull	= tempNewPos.z/( roomBounds.z );
 	myVel -= vec3( xPull * xPull * xPull * xPull * xPull,
 								yPull * yPull * yPull * yPull * yPull,
 								zPull * zPull * zPull * zPull * zPull ) * 0.1;
-	//}
 
 	bool hitWall = false;
 	vec3 wallNormal = vec3( 0.0 );

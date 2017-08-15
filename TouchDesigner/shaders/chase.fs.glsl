@@ -5,6 +5,8 @@
 // INPUTS
 uniform float uReset;
 uniform float uDelta;
+uniform float uInfluence = 0.1;
+uniform float uNoiseMultiplier = 0.00001;
 
 // SAMPLERS
 // INPUT SAMPLERS
@@ -19,12 +21,6 @@ layout(location = 0) out vec4 outPos;
 //layout(location = 1) out vec4 outFinal;
 
 
-void reset() {
-	vec4 initialPos = texture(sTD2DInputs[2], vUV.st);
-	outPos = initialPos;
-	//outVel = vec4(0.0);
-}
-
 void main()
 {
     vec4 initialPos = texture(sTD2DInputs[0], vUV.st);
@@ -34,13 +30,17 @@ void main()
         // run simulation
         vec3 noise = texture(sTD2DInputs[4], vUV.st).rgb;
         //vec3 vel = texture(sTD2DInputs[2], vUV.st).rgb;
-        vec3 targetPos = texture(sTD2DInputs[2], vUV.st).rgb * 20.0 + noise;
-        vec3 targetVel = texture(sTD2DInputs[3], vUV.st).rgb * 0.1 - noise * 0.001;
+        vec3 targetPos = texture(sTD2DInputs[2], vUV.st).rgb + noise * uNoiseMultiplier;
+        vec3 targetVel = texture(sTD2DInputs[3], vUV.st).rgb;// - noise * uNoiseMultiplier;
 
+		vec3 followDir = normalize(targetPos - pos.xyz) * uInfluence;
+		vec3 vel = targetVel * 0.01 + followDir;
+		vec3 newPos = pos.xyz + uDelta * vel;
         //targetVel.y *= 0.5; // dampen y velocity so particles don't get too far
 
         //outVel = (vec4(targetVel, 1.0) / distance(pos.rgb, targetPos)) * 10.0;//vec4(normalize(targetPos - pos.rgb), 1.0);// * targetVel, 1.0);
-		outPos = pos + uDelta * vec4(targetVel, 1.0); // symplectic euler position update
+		outPos = vec4(newPos, 1.0); // symplectic euler position update
+		//outPos = vec4(targetPos, 1.0); // disable chase to debug flock
     } else if (uReset < 1.0) {
         // transitioning out -- mix last simulated position and initial
         //outVel = vec4(0.0);
