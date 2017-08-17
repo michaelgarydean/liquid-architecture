@@ -23,7 +23,7 @@ float speed = uParams1.z;
 // 0 = simulated position
 // 1 = output position
 layout(location = 0) out vec4 simPos;
-layout(location = 1) out vec4 outPos;
+//layout(location = 1) out vec4 outPos;
 
 mat3 m = mat3( 0.00,  0.80,  0.60,
 			  -0.80,  0.36, -0.48,
@@ -96,14 +96,14 @@ void main() {
     	}
 
         simPos = pos;
-        outPos = pos;
+        //outPos = pos;
     } else if (uReset < 1.0) {
         // transition to stop -- mix last simulated position and initial
         simPos = pos;
-        outPos = pos;//mix(pos, initialPos, uReset);
+        //outPos = pos;//mix(pos, initialPos, uReset);
     } else {
         // simulation stopped -- initial positions
         simPos = initialPos;
-        outPos = initialPos;
+        //outPos = initialPos;
     }
 }
