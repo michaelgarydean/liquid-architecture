@@ -118,5 +118,5 @@ void main()
         pos.y = mix(startPos.y, targetPos.y, ystep);
     }
 
-    outPos = vec4(pos.xyz, 1.0);
+    outPos = pos;
 }
