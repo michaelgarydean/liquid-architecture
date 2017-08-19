@@ -171,7 +171,7 @@ void simulatePredators()
 
 	// AVOID WALLS
 	vec3 roomBounds = bounds;//vec3(350.0, 200.0, 350.0);
-	
+
 	float xPull	= tempNewPos.x/( roomBounds.x );
 	float yPull	= tempNewPos.y/( roomBounds.y );
 	float zPull	= tempNewPos.z/( roomBounds.z );
