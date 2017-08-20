@@ -9,6 +9,13 @@ layout(location = 0) out vec4 outPos;
 layout(location = 1) out vec4 outVel;
 
 
+void reset() {
+	vec4 initialPos = texture(sTD2DInputs[2], vUV.st);
+	outPos = initialPos;
+	outVel = vec4(0.0);
+}
+
+
 void main()
 {
 	vec3 initialPos = texture(sTD2DInputs[2], vUV.st).rgb;
@@ -20,13 +27,13 @@ void main()
         vel = vel;
         pos = pos;
 
-        outPos = TDOutputSwizzle(vec4(pos, 1.0));
-        outVel = TDOutputSwizzle(vec4(vel, 1.0));
+        outPos = vec4(pos, 1.0);
+        outVel = vec4(vel, 1.0);
     } else if (uReset < 1.0) {
-        outPos = TDOutputSwizzle(vec4(pos, 1.0));
-        outVel = TDOutputSwizzle(vec4(0.0));
+        outPos = vec4(pos, 1.0);
+        outVel = vec4(0.0);
     } else {
-        outPos = TDOutputSwizzle(vec4(initialPos, 1.0));
-        outVel = TDOutputSwizzle(vec4(0.0));
+        outPos = vec4(initialPos, 1.0);
+        outVel = vec4(0.0);
     }
 }

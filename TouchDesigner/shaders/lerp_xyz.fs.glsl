@@ -81,6 +81,13 @@ float qinticInOut(float t) {
     : -0.5 * pow(2.0 * t - 2.0, 5.0) + 1.0;
 }
 
+float quadraticIn(float t) {
+  return t * t;
+}
+
+float quadraticOut(float t) {
+  return -t * (t - 2.0);
+}
 
 // ----
 void main()
@@ -99,7 +106,7 @@ void main()
     if (uStep < 0.333) {
         // x
         float xstep = uStep / 0.333;
-        xstep = cubicInOut(xstep);
+        xstep = quadraticOut(xstep);
         pos.x = mix(startPos.x, targetPos.x, xstep);
         pos.y = startPos.y;
         pos.z = startPos.z;
