@@ -7,7 +7,6 @@ uniform float uRunning;
 uniform float uStep;
 
 layout(location = 0) out vec4 outPos;
-layout(location = 1) out vec4 outVel;
 
 
 // NOISE/FBM helpers
@@ -96,7 +95,6 @@ void main()
 
     if (uRunning < 1.0) {
         outPos = startPos;
-        outVel = vec4(0.0);
         return;
     }
 
