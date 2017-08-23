@@ -33,14 +33,12 @@ void main()
         vec3 targetPos = texture(sTD2DInputs[2], vUV.st).rgb;// + noise * uNoiseMultiplier;
         vec3 targetVel = texture(sTD2DInputs[3], vUV.st).rgb;// - noise * uNoiseMultiplier;
 
-        float dampening = 0.95;
+        float dampening = 0.99;
 		vec3 followDir = normalize(targetPos - pos.xyz) * uInfluence;
-        targetVel += (-pos.xyz) * 0.01;
+        targetVel += (-pos.xyz) * 0.0001; // pull towards center
 		vec3 vel = targetVel * dampening + noise * uNoiseMultiplier + followDir * 0.01;
-        // pull towards center
 
 		vec3 newPos = pos.xyz + uDelta * vel;
-
 
         //targetVel.y *= 0.5; // dampen y velocity so particles don't get too far
 
