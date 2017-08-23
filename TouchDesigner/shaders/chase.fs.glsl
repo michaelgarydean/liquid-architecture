@@ -30,12 +30,18 @@ void main()
         // run simulation
         vec3 noise = texture(sTD2DInputs[4], vUV.st).rgb;
         //vec3 vel = texture(sTD2DInputs[2], vUV.st).rgb;
-        vec3 targetPos = texture(sTD2DInputs[2], vUV.st).rgb + noise * uNoiseMultiplier;
+        vec3 targetPos = texture(sTD2DInputs[2], vUV.st).rgb;// + noise * uNoiseMultiplier;
         vec3 targetVel = texture(sTD2DInputs[3], vUV.st).rgb;// - noise * uNoiseMultiplier;
 
+        float dampening = 0.95;
 		vec3 followDir = normalize(targetPos - pos.xyz) * uInfluence;
-		vec3 vel = targetVel * 0.01 + followDir;
+        targetVel += (-pos.xyz) * 0.01;
+		vec3 vel = targetVel * dampening + noise * uNoiseMultiplier + followDir * 0.01;
+        // pull towards center
+
 		vec3 newPos = pos.xyz + uDelta * vel;
+
+
         //targetVel.y *= 0.5; // dampen y velocity so particles don't get too far
 
         //outVel = (vec4(targetVel, 1.0) / distance(pos.rgb, targetPos)) * 10.0;//vec4(normalize(targetPos - pos.rgb), 1.0);// * targetVel, 1.0);
