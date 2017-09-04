@@ -104,7 +104,7 @@ void main()
     if (uStep < 0.333) {
         // x
         float xstep = uStep / 0.333;
-        xstep = quadraticOut(xstep);
+        xstep = quadraticInOut(xstep);
         pos.x = mix(startPos.x, targetPos.x, xstep);
         pos.y = startPos.y;
         pos.z = startPos.z;
