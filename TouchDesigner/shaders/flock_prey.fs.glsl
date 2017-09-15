@@ -17,6 +17,7 @@ layout(location = 1) out vec4 outVel;
 // sTD2DInputs[1] = prey velocities
 // sTD2DInputs[2] = prey initial positions
 // sTD2DInputs[3] = predator positions
+// sTD2DInputs[4] = noise
 
 
 void reset()
@@ -44,13 +45,15 @@ void reactToLanterns( inout vec3 acc, vec3 _myPos )
 
         // IF WITHIN THE ZONE, REACT TO THE LANTERN
         //if( distToLanternSqrd > minRad && distToLanternSqrd < maxRad ) {
-            acc -= normalize( dirToLantern ) * ( ( maxRad - minRad ) / distToLanternSqrd ) * 0.01075 * uDelta;
+        //    acc -= normalize( dirToLantern ) * ( ( maxRad - minRad ) / distToLanternSqrd ) * 1.1575 * uDelta;
         //}
 
         // IF TOO CLOSE, MOVE AWAY MORE RAPIDLY
         if( distToLantern < radius * 1.1 ) {
             acc += normalize( dirToLantern );
-		}
+		} else {
+            acc -= normalize( dirToLantern ) * ( ( maxRad - minRad ) / distToLanternSqrd ) * 0.01575 * uDelta;
+        }
 
         //index			+= invNumLights;
     //}
@@ -102,13 +105,15 @@ void simulatePrey()
 	//	float maxSpeed		 = 4.1;
 	//	float crowdMulti	 = 0.4;
 
+    vec4 noise = texture( sTD2DInputs[4], vUV.st );
+
 	vec4 vPos = texture( sTD2DInputs[0], vUV.st );
 	vec3 myPos = vPos.rgb * multiplier;
-	float leadership = vPos.a;
+	float leadership = noise.y;//vPos.a;
 
 	vec4 vVel = texture( sTD2DInputs[1], vUV.st );
 	vec3 myVel = vVel.rgb * multiplier;
-	float myCrowd = vVel.a;
+	float myCrowd = noise.x;//vVel.a;
 
 	vec3 acc			= vec3( 0.0, 0.0, 0.0 );
 	float invFboDim = uTD2DInfos[0].res.x;
