@@ -80,7 +80,9 @@ void main() {
         				fbm(sc*pos.xyz + ut),
         				fbm(sc*pos.yzx + ut) );
 
-    	nv -= vec3(0.5);
+        //if (uTime > 0.25) {
+    	       nv -= vec3(0.5*min(uTime, 1.0));
+        //}
 
     	if (pos.a>=1) {
             // respawn

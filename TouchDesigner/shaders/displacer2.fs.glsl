@@ -26,21 +26,27 @@ void main()
 
     if (uReset == 0.0) {
         // to make it sweep from outside the model bounds
-        float x = dot(initialPos, uSliceDir) + 8.0;
-        float edge = uThreshold * 8.0;
+        float x = dot(initialPos, uSliceDir) + 10.0;
+        float edge = uThreshold * 10.0;
         // return 1 if x > edge, else 0
-        float step = step(edge, x);
+        //float step = step(edge, x);
         vec3 vel = texture(sTD2DInputs[1], vUV.st).rgb;
-        vec3 noise = texture(sTD2DInputs[3], vUV.st).rgb;
-        vel -= uShiftDir * abs(noise.x*140.0) * uDelta;
-        vel += noise * 0.001 * uDelta;
-        pos += vel * uDelta;
+        if (x < edge) {
 
-        vel = mix(vel, vec3(0.0), step);
-        pos = mix(pos, initialPos, step);
-
+        	float noise = abs(texture(sTD2DInputs[3], vUV.st).r);
+        	vel = -uShiftDir * abs(noise.x*50.0);
+        	//vel += noise * 0.001 * uDelta;
+        	pos += vel * abs(uDelta);
+        	//pos = vec3(-100.0);
+        	//vel = mix(vel, vec3(0.0), step);
+        	//vel = vec3(0.0);
+        	//pos = mix(pos, initialPos, step);
+        } else {
+        	pos = initialPos;
+        	vel = vec3(0.0);
+        }
         outPos = vec4(pos, 1.0);
-        outVel = vec4(vel, 1.0);
+        outVel = vec4(vel, 0.0);
     } else if (uReset < 1.0) {
         outPos = vec4(pos, 1.0);
         outVel = vec4(0.0);
