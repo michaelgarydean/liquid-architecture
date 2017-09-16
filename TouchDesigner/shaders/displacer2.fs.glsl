@@ -34,12 +34,9 @@ void main()
         if (x < edge) {
 
         	float noise = abs(texture(sTD2DInputs[3], vUV.st).r);
-        	vel = -uShiftDir * abs(noise.x*50.0);
-        	//vel += noise * 0.001 * uDelta;
-        	pos += vel * abs(uDelta);
-        	//pos = vec3(-100.0);
+        	vel = -uShiftDir * abs(noise.x*100.0);
+        	pos += vel * uDelta;
         	//vel = mix(vel, vec3(0.0), step);
-        	//vel = vec3(0.0);
         	//pos = mix(pos, initialPos, step);
         } else {
         	pos = initialPos;
