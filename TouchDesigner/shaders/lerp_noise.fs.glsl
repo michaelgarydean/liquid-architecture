@@ -7,7 +7,8 @@
 uniform float uDelta;
 uniform float uRunning;
 uniform float uStep;
-uniform float uNoiseMultiplier = 15.0;
+uniform float uNoiseMultiplier = 10.0;
+uniform float uEaseFactor = 0.5;
 
 layout(location = 0) out vec4 outPos;
 
@@ -66,7 +67,7 @@ void main()
     vec4 noise = texture(sTD2DInputs[3], vUV.st) * uNoiseMultiplier;
     noise.a = 0.0;
 
-    float pixelStep = pow(uStep, texture(sTDNoiseMap, vUV.st).r + 0.1);
+    float pixelStep = pow(uStep, texture(sTDNoiseMap, vUV.st).r + uEaseFactor);
     float step = cubicInOut(pixelStep);
 
     //step = pow(step, noise.x + 2.0);
