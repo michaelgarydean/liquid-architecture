@@ -65,5 +65,7 @@ void main()
     float step = cubicInOut(uStep);
     pos = mix(startPos, targetPos, step);
 
+    pos.a = 1.0;
+
     outPos = pos;
 }

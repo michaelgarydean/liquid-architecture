@@ -59,10 +59,10 @@ void main()
     vec4 targetPos = texture(sTD2DInputs[1], vUV.st);
     vec4 pos = texture(sTD2DInputs[2], vUV.st);
 
-    if (uRunning < 1.0) {
-        outPos = startPos;
-        return;
-    }
+    //if (uRunning < 1.0) {
+    //    outPos = startPos;
+    //    return;
+    //}
 
     vec4 noise = (texture(sTD2DInputs[3], vUV.st) * 2.0 - 1.0) * uNoiseMultiplier;
     noise.a = 0.0;
@@ -82,6 +82,8 @@ void main()
     float noiseStep = sin(M_PI * step);
 
     pos += mix(vec4(0.0), noise, noiseStep);
+
+    pos.a = 1.0;
 
     outPos = pos;
 }
