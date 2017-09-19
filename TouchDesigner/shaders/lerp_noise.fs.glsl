@@ -64,7 +64,7 @@ void main()
         return;
     }
 
-    vec4 noise = texture(sTD2DInputs[3], vUV.st) * uNoiseMultiplier;
+    vec4 noise = (texture(sTD2DInputs[3], vUV.st) * 2.0 - 1.0) * uNoiseMultiplier;
     noise.a = 0.0;
 
     float pixelStep = pow(uStep, texture(sTDNoiseMap, vUV.st).r + uEaseFactor);
